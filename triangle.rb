@@ -14,13 +14,30 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  if (a == b && b == c)
+  if (a <= 0 || b <= 0 || c <= 0)
+    raise TriangleError
+  elsif (a == b && b == c)
     :equilateral
-  elsif (a == b || a == c || b == c)
+  elsif check_iso(a, b, c)
+    :isosceles
+  elsif check_iso(a, c, b)
+    :isosceles
+  elsif check_iso(c, b, a)
     :isosceles
   else
     :scalene
   end
+end
+
+def check_iso(a, b, c)
+  if a == b
+    if a + b > c
+      return true
+    else
+      raise TriangleError
+    end
+  end
+  false
 end
 
 # Error class used in part 2.  No need to change this code.
